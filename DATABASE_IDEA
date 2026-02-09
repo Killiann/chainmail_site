@@ -1,0 +1,117 @@
+Table weave {
+  uuid string [primary key]
+  name string [not null]
+  description string 
+  min_ar float
+  max_ar float  
+  picture string
+  tutorial_link string
+  multi_ringsize bool
+
+  family_uuid string
+  structure_uuid string
+  form_uuid string
+  attribute_uuid string
+} 
+
+Table family {
+  uuid string [primary key]
+  name string
+  description string
+}
+
+Table structure {
+  uuid string [primary key]
+  name string
+  description string
+}
+
+Table form {
+  uuid string [primary key]
+  name string
+  description string
+}
+
+Table attribute {
+  uuid string [primary key]
+  name string
+  description string
+}
+
+Table option {
+  uuid string [primary key]
+  option string
+}
+
+Table optimal_ar {
+  uuid string [primary key]
+  weave_id string [not null]
+  value float
+}
+
+Table ring {
+  uuid string [primary key]
+  name string
+  od_mm float
+  od_inch float
+  od_inch_fraction float
+  wd_mm float
+  gauge_swg float
+  gauge_awg float
+  id_mm float
+  id_inch float
+  id_inch_fraction float
+  ar float
+  supplier float
+}
+
+Table family_weave {
+  weave_uuid string [not null]
+  family_uuid string [not null]
+}
+
+Table structure_weave {
+  weave_uuid string [not null]
+  structure_uuid string [not null]
+}
+
+Table form_weave {
+  weave_uuid string [not null]
+  form_uuid string [not null]
+}
+
+Table attribute_weave {
+  weave_uuid string [not null]
+  attribute_uuid string [not null]
+}
+
+Table option_ring {
+  option_id string
+  ring_id string
+}
+
+Table option_weave {
+  option_id string
+  weave_id string
+}
+
+Ref family_link_01: family_weave.family_uuid > family.uuid
+Ref family_link_02: family_weave.weave_uuid > weave.family_uuid
+
+Ref structure_link_01: structure_weave.structure_uuid > structure.uuid
+Ref structure_link_02: structure_weave.weave_uuid > weave.structure_uuid
+
+Ref form_link_01: form_weave.form_uuid > form.uuid
+Ref form_link_02: form_weave.weave_uuid > weave.form_uuid
+
+Ref attribute_link_01: attribute_weave.attribute_uuid > attribute.uuid
+Ref attribute_link_02: attribute_weave.weave_uuid > weave.attribute_uuid
+
+Ref option_ring_01: option_ring.option_id > option.uuid
+Ref option_ring_02: option_ring.ring_id > ring.uuid
+
+Ref option_weave_01: option_weave.option_id > option.uuid
+Ref option_weave_02: option_weave.weave_id > weave.uuid
+
+Ref optimal_ar_link: optimal_ar.uuid > weave.uuid
+

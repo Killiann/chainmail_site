@@ -1,0 +1,28 @@
+services:
+  api:
+    build: ./backend
+    container_name: chainmail-api
+    working_dir: /app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/app:/app/app
+    depends_on:
+      - postgres
+    env_file:
+      - .env.dev
+
+  postgres:
+    image: postgres:16
+    container_name: chainmail-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes: 
+  pgdata:

@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+.env/
+.env.*
+
+# Pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# VSCode
+.vscode/
